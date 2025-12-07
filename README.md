@@ -23,16 +23,6 @@ No flags, passwords, or challenge spoilers are included.
 
 ---
 
-## Structure
-
-Each machine or challenge contains:
-- **summary.txt** – high-level concept overview  
-- **steps.txt** – enumeration → exploitation → privilege escalation  
-- **notes.txt** – commands, payloads, key findings  
-- **loot/** (optional) – anonymized results, scans, or artifacts  
-
----
-
 ## Example Enumeration Flow
 
 ```text
