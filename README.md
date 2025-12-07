@@ -1,2 +1,57 @@
-# ctf-writeups
-A collection of clean, technical walkthroughs for HTB, TryHackMe, and other CTF challenges. Focuses on methodology, enumeration, exploitation, remediation notes, and key takeaways to reinforce practical offensive security skills.
+# CTF Writeups
+
+Clean, structured walkthroughs for HTB, TryHackMe, and various CTF challenges.  
+These notes focus on methodology, enumeration flow, exploitation paths, and key takeaways to help reinforce practical offensive security skills.
+
+---
+
+## Overview
+
+This repo stores writeups for:
+- **HackTheBox**
+- **TryHackMe**
+- **Standalone CTFs**
+- **Practice labs / boot2root machines**
+
+All content is written to highlight:
+- Clear attack paths  
+- Commands used at each stage  
+- Lessons learned  
+- Remediation or hardening notes  
+
+No flags, passwords, or challenge spoilers are included.
+
+---
+
+## Structure
+
+Each machine or challenge contains:
+- **summary.txt** – high-level concept overview  
+- **steps.txt** – enumeration → exploitation → privilege escalation  
+- **notes.txt** – commands, payloads, key findings  
+- **loot/** (optional) – anonymized results, scans, or artifacts  
+
+---
+
+## Example Enumeration Flow
+
+```text
+1. Recon  
+   - nmap scan  
+   - service enumeration  
+   - tech-stack fingerprinting  
+
+2. Attack Surface
+   - version analysis  
+   - potential CVEs  
+   - misconfigurations  
+
+3. Exploitation  
+   - foothold  
+   - lateral movement (if applicable)
+
+4. PrivEsc  
+   - kernel, sudo, PATH, capabilities, services  
+
+5. Wrap-Up  
+   - mitigation notes  
