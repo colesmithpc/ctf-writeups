@@ -1,192 +1,186 @@
-📡 Enumeration
+# **📡 Enumeration & Exploitation Walkthrough**
 
-Initial enumeration began with a full TCP port sweep to identify exposed services and map the system’s attack surface.
+A structured, professional pentesting write-up formatted to match my GitHub documentation style.  
+This walkthrough demonstrates **systematic enumeration**, **attack surface analysis**, **vulnerability identification**, and **ethical exploitation methodology**.
 
-🔍 Full Nmap Scan
+---
+
+## **📡 Enumeration**
+
+Initial enumeration began with a full TCP port sweep to map the system’s exposed services and identify viable attack vectors.
+
+### **🔍 Full Nmap Scan**
+```bash
 nmap -sV -sC -A -T4 -p- 10.129.44.167 -oN nmap_scan.md
+```
 
+The scan provided key intelligence regarding:
 
-The scan provided the following useful information:
+- Open ports  
+- Running services and versions  
+- Default NSE script output  
+- OS / service fingerprints  
+- Potential misconfigurations  
 
-Open ports
+---
 
-Service versions
+## **📝 Key Findings from Nmap**
 
-Default NSE script results
-
-OS / service fingerprints
-
-Potential misconfigurations
-
-📝 Key Findings from Nmap
-Open Ports
-
+### **Open Ports**
 (Add discovered ports here)
 
-Example: 22/tcp (OpenSSH)
+- Example: **22/tcp** – OpenSSH  
+- Example: **80/tcp** – Apache HTTPD  
+- Example: **445/tcp** – SMB File Sharing  
 
-Example: 80/tcp (Apache)
+### **Service Insights**
 
-Example: 445/tcp (SMB)
+- Version details  
+- Possible associated CVEs  
+- Outdated or vulnerable configurations  
 
-Service Insights
+### **Initial Attack Surface**
 
-Version details
+- Web service likely entry point  
+- Potentially accessible SMB shares  
+- SSH version worth noting  
 
-Potential CVEs
+---
 
-Outdated or vulnerable configurations
+## **🌐 Web Enumeration**
 
-Initial Attack Surface
+After confirming a running web service, additional enumeration was performed.
 
-Web service likely entry point
-
-SMB shares possibly accessible
-
-SSH version worth noting
-
-🌐 Web Enumeration
-
-After identifying a web server, deeper enumeration was performed.
-
-Directory & File Discovery
+### **📂 Directory & File Discovery**
+```bash
 gobuster dir -u http://10.129.44.167 -w /usr/share/wordlists/dirb/common.txt -o gobuster.md
+```
 
-Tech Stack Fingerprinting
+### **🧩 Tech Stack Fingerprinting**
 
-Frameworks detected
+- Framework identification  
+- CMS / library versions  
+- Interesting endpoints  
+- Login panels or file upload mechanisms  
 
-CMS / library versions
+---
 
-Interesting endpoints
+## **📁 SMB / Service Enumeration**
 
-Login portals or upload forms
+If SMB or additional auxiliary services were identified:
 
-📁 SMB / Service Enumeration
-
-If SMB or other auxiliary services were identified:
-
-SMB Share Listing
+### **📄 SMB Share Listing**
+```bash
 smbclient -L //10.129.44.167/
+```
 
-Mounting Anonymous Shares
+### **📥 Mounting Anonymous Shares**
+```bash
 smbclient //10.129.44.167/sharename
+```
 
-Useful Artifacts
+### **🔍 Useful Artifacts**
 
-Credentials
+- Credentials  
+- Config files  
+- Internal scripts  
+- Backup archives  
 
-Config files
+---
 
-Scripts
-
-Backup archives
-
-🧩 Vulnerability Identification
+## **🧩 Vulnerability Identification**
 
 Based on enumeration:
 
-Detected possible CVEs
+- Version-based vulnerabilities detected  
+- Possible CVEs identified  
+- Misconfigurations observed  
+- Privilege escalation paths mapped  
 
-Identified version-based vulnerabilities
+### **Potential Attack Vectors**
 
-Located misconfigurations
+- Web injection attacks  
+- File upload → RCE  
+- Weak SMB permissions  
+- Outdated libraries  
+- Default credentials  
 
-Mapped privilege escalation paths
+---
 
-Potential Attack Vectors
+## **🚀 Exploitation**
 
-Web injection
+Once a viable exploit path was confirmed:
 
-File upload / RCE
+### **🔧 Exploit Method Used**
 
-Weak SMB permissions
+- Describe the framework or exploit (manual, Metasploit, custom script, etc.)  
+- Detail the logic behind the attack  
+- Provide payload notes  
 
-Outdated libraries
-
-Default credentials
-
-🚀 Exploitation
-
-Once the viable vector was confirmed:
-
-Exploit Method Used
-
-Describe framework or exploit (manual or scripted)
-
-Logic behind the attack
-
-Payload details
-
-Gaining Initial Access
+### **📟 Gaining Initial Access**
+```bash
 nc -lvnp 4444
+```
 
+Document shell stability, TTY upgrade, and post-access checks.
 
-Document shell access, stability, TTY upgrade, etc.
+---
 
-🔼 Privilege Escalation
+## **🔼 Privilege Escalation**
 
-After achieving a foothold:
+After establishing a foothold:
 
-Local Enumeration
+### **🧭 Local Enumeration**
+```bash
 linpeas.sh
+```
 
-Weaknesses Identified
+### **Weaknesses Identified**
 
-SUID binaries
+- SUID binaries  
+- Misconfigured permissions  
+- Credential reuse  
+- Scheduled tasks  
+- Kernel vulnerabilities  
 
-Misconfigured permissions
+### **📈 Privilege Escalation Path**
 
-Credential reuse
+- Describe the method used  
+- Include commands or scripts  
+- Demonstrate final root access  
 
-Scheduled tasks
+---
 
-Kernel vulnerabilities
+## **🏁 Post-Exploitation**
 
-Privilege Escalation Path
+### **📦 Loot Collected**
 
-Describe the escalation technique used
+- `user.txt`  
+- `root.txt`  
+- Credentials  
+- System information  
 
-Provide commands or scripts
+### **🔄 Persistence**
+Not used unless explicitly permitted.
 
-Show final root access
+---
 
-🏁 Post-Exploitation
-Loot Collected
+## **🔒 Mitigation Recommendations**
 
-user.txt
+- Patch outdated services  
+- Enforce least-privilege principles  
+- Remove world-writable configurations  
+- Strengthen segmentation  
+- Review credential policies  
 
-root.txt
+---
 
-Credentials
+## **📬 Final Notes**
 
-System information
-
-Persistence (If applicable)
-
-Not used, unless explicitly allowed
-
-🔒 Mitigation Recommendations
-
-Patch outdated services
-
-Enforce least privilege
-
-Remove world-writable configs
-
-Improve segmentation
-
-Review credential policies
-
-📬 Final Notes
-
-This write-up is provided for educational, ethical, and professional development purposes.
+This write-up is provided for **educational**, **ethical**, and **professional development** purposes.  
 It demonstrates:
 
-Practical enumeration workflow
-
-Clean documentation style
-
-Realistic pentesting methodology
-
-Reproducible technical steps
+- Practical enumeration workflow  
+- Clean documentation style  
+- Realistic pentesting methodology  
+- Reproducible technical steps  
